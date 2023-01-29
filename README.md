@@ -1,5 +1,5 @@
 # Wilderzone API
-Web interface for easy access to the TA Network API.
+Web interface for easy access to the [TA Network API](https://github.com/wilderzone/ta-network-api).
 
 https://api.wilderzone.live/
 
