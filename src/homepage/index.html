@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Wilderzone API</title>
+	<link rel="shortcut icon" href="https://raw.githubusercontent.com/wilderzone/ta-network-api/main/logo.svg" type="image/x-icon">
+	<style>
+		html {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background: #fff;
+		}
+		.splash {
+			position: absolute;
+			z-index: 0;
+			top: -25vmax;
+			left: -25vmax;
+			width: 80vmax;
+			aspect-ratio: 1;
+			background-image: url('https://raw.githubusercontent.com/wilderzone/ta-network-api/main/logo.svg');
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
+			opacity: 0.07;
+			user-select: none;
+			pointer-events: none;
+		}
+		main {
+			position: relative;
+		}
+		table {
+			border-collapse: collapse;
+		}
+		td {
+			padding: 0.2em 1ch 0.4em;
+			background-color: #fff;
+			border: 1px solid currentColor;
+		}
+		.modifier {
+			margin-left: 0.5ch;
+			padding: 0 0.7ch 0.2em;
+			font-size: small;
+			background-color: #0001;
+			border-radius: 3px;
+		}
+		p {
+			margin: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="splash"></div>
+	<main>
+		<h1>Welcome to the Wilderzone API</h1>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Endpoint</th>
+					<th>Modifiers</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><a href="/online/players">/online/players</a></td>
+					<td>
+						<a class="modifier" href="/online/players?simple">?simple</a>
+					</td>
+					<td><p>All players currently in-game.</p></td>
+				</tr>
+				<tr>
+					<td><a href="/online/servers">/online/servers</a></td>
+					<td>
+						<a class="modifier" href="/online/servers?simple">?simple</a>
+						<a class="modifier" href="/online/servers?populated">?populated</a>
+					</td>
+					<td><p>All game servers currently online.</p></td>
+				</tr>
+				<tr>
+					<td><a href="/history/players">/history/players</a></td>
+					<td>
+						<a id="historyFromExample" class="modifier" href="/history/players">?from=&lt;timestamp&gt;</a>
+						<a id="historyToExample" class="modifier" href="/history/players">?to=&lt;timestamp&gt;</a>
+						<a id="historyIntervalExample" class="modifier" href="/history/players">?interval=&lt;minutes&gt;</a>
+					</td>
+					<td><p>A history of the total number of online players.</p></td>
+				</tr>
+				<tr>
+					<td><a href="/news">/news</a></td>
+					<td>
+						<a class="modifier" href="/news?latest">?latest</a>
+					</td>
+					<td><p>News from the Wilderzone.</p></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<br>
+		<p><i>All data is provided as JSON.</i></p>
+	</main>
+</body>
+
+<script>
+	function historyFromExample () {
+		const element = document.getElementById('historyFromExample');
+		if (element) {
+			const time = Date.now() - 10800000; // 3 hours ago.
+			element.href = `/history/players?from=${time}`;
+		}
+	}
+	function historyToExample () {
+		const element = document.getElementById('historyToExample');
+		if (element) {
+			const time = Date.now();
+			element.href = `/history/players?to=${time}`;
+		}
+	}
+	function historyIntervalExample () {
+		const element = document.getElementById('historyIntervalExample');
+		if (element) {
+			const time = Date.now() - 7200000; // 2 hours ago.
+			element.href = `/history/players?from=${time}&interval=3`;
+		}
+	}
+	// Refresh the example links.
+	historyFromExample();
+	historyToExample();
+	historyIntervalExample();
+	window.setInterval(() => {
+		historyFromExample();
+		historyToExample();
+		historyIntervalExample();
+	}, 3000);
+</script>
+</html>
